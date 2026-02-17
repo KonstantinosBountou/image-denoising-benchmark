@@ -16,7 +16,7 @@ Three approaches were implemented and evaluated:
 
 The evaluation was conducted on benchmark datasets (CBSD68 and Kodak24) under Gaussian and Salt & Pepper noise models. Performance was measured using Peak Signal-to-Noise Ratio (PSNR).
 
-The results highlight the trade-off between specialized model-based approaches and data-driven neural architectures.
+The experimental findings demonstrate that performance superiority is strongly dependent on noise distribution assumptions and model inductive bias.
 
 ---
 
@@ -36,10 +36,9 @@ The results highlight the trade-off between specialized model-based approaches a
 PSNR = 10 × log10(MAX² / MSE)
 ```
 
-Where MAX = 255 for 8-bit images.
+Where `MAX = 255` for 8-bit images.
 
 Higher PSNR values indicate better reconstruction quality.
-
 
 Interpretation:
 - PSNR > 30 dB → Very high quality
@@ -72,7 +71,7 @@ Interpretation:
 4. Aggregated benchmarking on Kodak24
 5. Comparative analysis
 
-The pipeline enables controlled experimentation and reproducible benchmarking across noise configurations.
+The pipeline enables controlled experimentation, modular implementation, and reproducible benchmarking across noise configurations.
 
 ---
 
@@ -87,11 +86,11 @@ The pipeline enables controlled experimentation and reproducible benchmarking ac
 | BM3D | **29.94** | **+9.72 dB** |
 | U-Net | 26.70 | +6.48 dB |
 
-### Observation
+**Observation**
 
 - **BM3D achieved the highest PSNR (29.94 dB)**
 - Classical collaborative filtering remains superior for Gaussian noise
-- U-Net underperformed compared to BM3D in this scenario
+- U-Net underperformed compared to BM3D in this configuration
 
 ---
 
@@ -104,11 +103,37 @@ The pipeline enables controlled experimentation and reproducible benchmarking ac
 | BM3D | 23.65 | +5.40 dB |
 | U-Net | **23.83** | **+5.58 dB** |
 
-### Observation
+**Observation**
 
 - **U-Net achieved the best performance (23.83 dB)**
 - Deep learning methods proved more robust to impulse noise
 - NLM failed to handle Salt & Pepper noise effectively
+
+---
+
+# Visual Results
+
+## Gaussian Noise – Kodak 1 Example
+
+![Gaussian Comparison](results/kodak1_gaussian_comparison.png)
+
+BM3D preserves structural details and edges more effectively under Gaussian noise, while U-Net provides competitive smoothing but slightly lower PSNR.
+
+---
+
+## Salt & Pepper Noise – Kodak 1 Example
+
+![Salt & Pepper Comparison](results/kodak1_saltpepper_comparison.png)
+
+U-Net demonstrates superior robustness to impulse noise, removing sparse corruption while maintaining structural consistency.
+
+---
+
+## PSNR Comparison Plot
+
+![PSNR Plot](results/psnr_plot.png)
+
+The bar plot summarizes the quantitative benchmarking across noise types.
 
 ---
 
@@ -128,7 +153,7 @@ The pipeline enables controlled experimentation and reproducible benchmarking ac
 - U-Net generalizes better across different noise distributions.
 - NLM performs adequately only under Gaussian noise.
 - Model superiority strongly depends on noise distribution assumptions.
-- Deep learning provides flexibility, while classical methods exploit strong inductive priors.
+- Classical methods exploit strong inductive priors, while neural networks provide flexibility.
 
 ---
 
@@ -137,12 +162,12 @@ The pipeline enables controlled experimentation and reproducible benchmarking ac
 This project was designed and evaluated as an end-to-end denoising pipeline, focusing on:
 
 - Reproducible experimentation
-- Modular implementation
+- Modular architecture
 - Quantitative benchmarking
 - Hyperparameter tuning
 - Performance-driven comparison
 
-The goal was not only model implementation but structured evaluation under controlled experimental conditions.
+The objective was structured evaluation under controlled experimental conditions rather than isolated model testing.
 
 ---
 
@@ -178,7 +203,7 @@ The goal was not only model implementation but structured evaluation under contr
 ## Project Structure
 
 ```
-ImageDenoisingProject/
+image-denoising-benchmark/
 │
 ├── notebooks/
 │   └── DENOISING_PROJECT.ipynb
@@ -190,8 +215,9 @@ ImageDenoisingProject/
 │   └── Presentation.pptx
 │
 ├── results/
-│   ├── psnr_plot.png
-│   └── example_outputs.png
+│   ├── kodak1_gaussian_comparison.png
+│   ├── kodak1_saltpepper_comparison.png
+│   └── psnr_plot.png
 │
 ├── requirements.txt
 └── README.md
@@ -202,8 +228,8 @@ ImageDenoisingProject/
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/ImageDenoisingProject.git
-cd ImageDenoisingProject
+git clone https://github.com/KonstantinosBountou/image-denoising-benchmark.git
+cd image-denoising-benchmark
 pip install -r requirements.txt
 ```
 
@@ -217,6 +243,6 @@ jupyter notebook notebooks/DENOISING_PROJECT.ipynb
 
 ---
 
-###  License
+## License
 
 MIT License
